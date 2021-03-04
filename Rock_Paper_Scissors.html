@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+    <script> 
+    
+    //Esta funcion se encarga de elegir de forma aleatoria una jugada, ya sea piedra,papel o tijera.
+    function computerPlay (){
+        let computerPick;
+        let randomPlay = Math.round(Math.random() * 2);
+        switch (randomPlay){
+            case 0:
+                computerPick = "Rock";
+                break;
+            case 1:
+                computerPick = "Paper";
+                break;
+            case 2:
+                computerPick = "Scissors";
+                break;
+        }
+        return computerPick.toLowerCase();
+    }
+
+    function playRound(playerSelection, computerSelection){
+        if(playerSelection === "rock"){
+            switch(computerSelection){
+                case "rock":
+                    return "Tie Game";
+                    break;
+                case "paper":
+                    return "You lose";
+                    break;
+                case "scissors":
+                    return "You win";
+                    break;
+            }
+        }else if(playerSelection === "paper"){
+            switch(computerSelection){
+                case "rock":
+                    return "You win";r
+                    break;
+                case "paper":
+                    return "Tie Game"
+                    break;
+                case "scissors":
+                    return "You lose";
+                    break;
+            }
+        }else if(playerSelection === "scissors"){
+            switch(computerSelection){
+                case "rock":
+                    return "You lose";
+                    break;
+                case "paper":
+                    return "You win";
+                    break;
+                case "scissors":
+                    return "Tie game";
+                    break;
+            }
+        }
+        
+    }
+
+    function game(){
+        for(i = 0; i < 5; i++){
+            let playerSelection = prompt("Que deseas jugar? (rock, paper or scissors)").toLowerCase();
+            let computerSelection = computerPlay();
+            let score;
+            
+            if(playRound(playerSelection, computerSelection).includes("lose")){
+                console.log("mal")
+            }else if(playRound(playerSelection, computerSelection).includes("win")){
+                console.log("bien")
+            }else{
+                console.log("empate")
+            }
+            
+        }
+    }
+    game();
+
+    </script>
+
+</body>
+
+</html>
