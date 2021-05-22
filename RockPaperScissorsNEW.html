@@ -13,7 +13,8 @@
             
         }
         button{
-            margin-right: 40px;
+            margin-right: 10px;
+            margin-left: 10px;
             width: 150px;
             height: 70px;
             font-size: 20px;
@@ -34,13 +35,52 @@
         }
         #result{
             display:flex;
-            justify-content: center;
-            margin-top: 50px;
-            padding:50px;
+            width: 50%;           
             border: 3px solid;
             border-color: #f2dac3;
             border-radius: 10px;
             background-color: #f1ca89;
+            justify-content: center;
+            margin: 10px auto;
+            
+
+        }
+        #pResult{
+            font-size: 20px;
+        }
+        #score{
+            display: flex;
+            justify-content: center;
+            
+        }
+        #scorePlayer{
+            margin-right: 15px;
+            font-size: 17px;
+        }
+        #scorePC{
+            margin-left: 15px;
+            font-size: 17px;
+        }
+
+        @media (max-width: 1000px){
+            #result{
+                width: 75%;
+            }
+            #pResult{
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 600px){
+            #result{
+                width: 85%;
+            }
+            #pResult{
+                font-size: 16px;
+            }
+            button{
+                width: 100px;
+                height: 70px;
+            }
         }
     </style>
 </head>
@@ -51,8 +91,15 @@
         <button id='scissors'>Scissors</button>
     </div>
 
-    <div id="result">
-        Choose Paper, Rock or Scissors
+    <div id="result" >
+        <p id='pResult'>
+            Choose Paper, Rock or Scissors
+        </p>
+            
+    </div>
+    <div id='score'>
+        <p id='scorePlayer'>ScorePlayer: 0</p>
+        <p id='scorePC'>ScorePC: 0</p>
     </div>
     <script> 
     
@@ -159,7 +206,10 @@
     }
 
     const buttons = document.querySelectorAll('button')
-    const container = document.querySelector('#result');
+    const container = document.querySelector('#pResult');
+    const scorePL = document.querySelector('#scorePlayer')
+    const scorePC = document.querySelector('#scorePC') 
+
     let scorePlayer = 0
     let scoreComputer = 0
 
@@ -170,17 +220,40 @@
             resultado = playRound(button.id,computerPlay())
             console.log(button.id)           
             container.innerHTML = resultado
+
+            //Suman los puntos para quien gane.
             if (resultado.includes('win')){
                 scorePlayer += 1
+                scorePL.innerHTML = 'ScorePlayer: ' + scorePlayer;
             }
             else if(resultado.includes('lose')){
                 scoreComputer += 1
+                scorePC.innerHTML = 'scorePC: ' + scoreComputer;
             }
 
 
+            //Se reinicia los scores luego de anunciar ganador
+            if (scorePlayer == 5){
+                alert('Ganaste, se reinicia los scores')
+                scorePlayer = 0
+                scoreComputer = 0
+                scorePL.innerHTML = 'scorePlayer: ' + scorePlayer;
+                scorePC.innerHTML = 'scorePC: ' + scoreComputer;
+                container.innerHTML = 'Choose Paper, Rock or Scissors';
+            }
+            else if (scoreComputer == 5){
+                alert('Perdiste, se reinicia los scores')
+                scorePlayer = 0
+                scoreComputer = 0
+                scorePL.innerHTML = 'scorePlayer: ' + scorePlayer;
+                scorePC.innerHTML = 'scorePC: ' + scoreComputer;
+                container.innerHTML = 'Choose Paper, Rock or Scissors';
+            }
+
         })
-        
+    console.log(scorePlayer)
     })
+    
 
 
     </script>
